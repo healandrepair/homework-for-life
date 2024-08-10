@@ -1,0 +1,6 @@
+.container {
+    display: grid;
+    grid-template-columns: [first] 1fr [second] 1fr ;
+    grid-template-rows: [row1] 1fr [row2]1fr;
+}
+

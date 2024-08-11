@@ -29,6 +29,21 @@ function calendar() {
         12: 31
     }
 
+    const months : { [key:number ]: string} = {
+        1: "January",
+        2: "February",
+        3: "March",
+        4: "April",
+        5: "May",
+        6: "June",
+        7: "July",
+        8: "August",
+        9: "September",
+        10:"October",
+        11:"November",
+        12:"December",
+    }
+
     const initaliseDays = () => {
         const dayArray: Day[] = Array.from({ length: days[currentMonth] }, (_, index) => ({
             id: index + 1,
@@ -50,19 +65,41 @@ function calendar() {
         ));
     };
         
-    //
-    // return (
-    //     <div className={styles.container}>
-    //         {daysInMonth.map((day) => (
-    //             <DayComponent key={day.id} day={day.day} month={day.month} id={day.id}/>
-    //         ))}
-    //     </div>
-    // );
-
+    
+    const previousMonth = () => {
+        if (currentMonth === 1) {
+            setCurrentMonth(12);
+        }
+        else {
+            setCurrentMonth(currentMonth - 1);
+        }
+    }
+    
+    const nextMonth = () => {
+        if (currentMonth === 12) {
+            setCurrentMonth(1);
+        }
+        else {
+            setCurrentMonth(currentMonth + 1);
+        }
+    }
+    
     return (
-        <div className={styles.container}>
-            {createDaysComponent()}
-        </div>)
+        <div>
+            <h1>{months[currentMonth]} 2024</h1>
+            
+            <div className={styles.container}>
+                {createDaysComponent()}
+            </div>
+            
+            <button onClick={previousMonth}>
+                Previous Month
+            </button>
+            <button onClick={nextMonth}>
+                Next Month
+            </button>
+        </div>
+    )
 }
 
 export default calendar;

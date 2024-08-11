@@ -1,6 +1,11 @@
 .container {
     display: grid;
-    grid-template-columns: [first] 1fr [second] 1fr ;
-    grid-template-rows: [row1] 1fr [row2]1fr;
+    grid-template-columns: repeat(7, 1fr [col]) ;
+    grid-template-rows: repeat(7, 1fr [row]);
+    grid-template-areas: "header header header header header header header";
+}
+
+.headah{
+    grid-area: header
 }
 

@@ -61,7 +61,7 @@ function calendar() {
 
     const createDaysComponent = () => {
         return daysInMonth.map((day) => (
-            <DayComponent key={day.id} day={day.day} month={day.month} id={day.id} />
+            <DayComponent key={day.id} day={day.day} month={day.month} id={day.id} note={""} />
         ));
     };
         

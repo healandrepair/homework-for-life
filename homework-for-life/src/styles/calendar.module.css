@@ -5,7 +5,6 @@
     grid-template-areas: "header header header header header header header";
 }
 
-.headah{
+.headah {
     grid-area: header
 }
-

@@ -6,5 +6,5 @@ public class Day
     
     public DateTime Date { get; set; }
 
-    public string Notes { get; set; } = "";
+    public string Note { get; set; } = "";
 }

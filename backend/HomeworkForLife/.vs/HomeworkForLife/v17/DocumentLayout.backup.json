@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\ngeva\\Documents\\GitHub\\homework-for-life\\backend\\HomeworkForLife\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3383ACF3-2675-48A9-9043-F69E51C3162A}|HomeworkForLife\\HomeworkForLife.csproj|c:\\users\\ngeva\\documents\\github\\homework-for-life\\backend\\homeworkforlife\\homeworkforlife\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3383ACF3-2675-48A9-9043-F69E51C3162A}|HomeworkForLife\\HomeworkForLife.csproj|solutionrelative:homeworkforlife\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ngeva\\Documents\\GitHub\\homework-for-life\\backend\\HomeworkForLife\\HomeworkForLife\\Controllers\\WeatherForecastController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:HomeworkForLife\\Controllers\\WeatherForecastController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,8 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "C:\\Users\\ngeva\\Documents\\GitHub\\homework-for-life\\backend\\HomeworkForLife\\HomeworkForLife\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "HomeworkForLife\\WeatherForecast.cs",
+              "ToolTip": "C:\\Users\\ngeva\\Documents\\GitHub\\homework-for-life\\backend\\HomeworkForLife\\HomeworkForLife\\WeatherForecast.cs",
+              "RelativeToolTip": "HomeworkForLife\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-17T04:57:53.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\ngeva\\Documents\\GitHub\\homework-for-life\\backend\\HomeworkForLife\\HomeworkForLife\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "HomeworkForLife\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\ngeva\\Documents\\GitHub\\homework-for-life\\backend\\HomeworkForLife\\HomeworkForLife\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "HomeworkForLife\\Controllers\\WeatherForecastController.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-17T02:51:39.221Z"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"

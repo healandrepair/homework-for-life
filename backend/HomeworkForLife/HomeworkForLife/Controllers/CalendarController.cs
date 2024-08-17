@@ -13,10 +13,12 @@ namespace HomeworkForLife.Controllers
         };
 
         private readonly ILogger<CalendarController> _logger;
+        private readonly HomeworkForLifeContext _context;
 
-        public CalendarController(ILogger<CalendarController> logger)
+        public CalendarController(ILogger<CalendarController> logger, HomeworkForLifeContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         [HttpGet("GetWeatherForecast")]
@@ -34,16 +36,18 @@ namespace HomeworkForLife.Controllers
         [HttpGet("GetDays")]
         public IList<Day> GetDays()
         {
-            var days = new List<Day>()
-            {
-                new Day()
-                {
-                    Date = new DateTime(2023, 1, 1),
-                    Notes = "New Year's Day",
-                }
-            };
+            // var days = new List<Day>()
+            // {
+            //     new Day()
+            //     {
+            //         Date = new DateTime(2023, 1, 1),
+            //         Note = "New Year's Day",
+            //     }
+            // };
+
+            var daysFromDb = _context.Day.ToList();
         
-            return days;
+            return daysFromDb;
         }
     }
 }

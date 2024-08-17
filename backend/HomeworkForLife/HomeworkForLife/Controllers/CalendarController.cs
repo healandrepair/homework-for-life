@@ -25,12 +25,12 @@ namespace HomeworkForLife.Controllers
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                {
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                    TemperatureC = Random.Shared.Next(-20, 55),
+                    Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                })
+                .ToArray();
         }
 
         [HttpGet("GetDays")]
@@ -46,8 +46,18 @@ namespace HomeworkForLife.Controllers
             // };
 
             var daysFromDb = _context.Day.ToList();
-        
+
             return daysFromDb;
         }
+
+        [HttpPost("AddDay")]
+        public Task AddDay(Day day)
+        {
+            _context.Day.Add(day);
+            _context.SaveChanges();
+
+            return Task.CompletedTask;
+        }
+        
     }
 }

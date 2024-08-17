@@ -58,6 +58,5 @@ namespace HomeworkForLife.Controllers
 
             return Task.CompletedTask;
         }
-        
     }
 }

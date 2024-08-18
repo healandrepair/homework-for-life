@@ -1,6 +1,7 @@
 export interface Day {
+    date: Date;  
     day: number;
     id: number;
     month: number;
-    notes: string;
+    note: string;
 }

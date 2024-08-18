@@ -7,11 +7,6 @@ namespace HomeworkForLife.Controllers
     [Route("api/[controller]")]
     public class CalendarController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<CalendarController> _logger;
         private readonly HomeworkForLifeContext _context;
 
@@ -21,30 +16,9 @@ namespace HomeworkForLife.Controllers
             _context = context;
         }
 
-        [HttpGet("GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-                {
-                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    TemperatureC = Random.Shared.Next(-20, 55),
-                    Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-                })
-                .ToArray();
-        }
-
         [HttpGet("GetDays")]
         public IList<Day> GetDays()
         {
-            // var days = new List<Day>()
-            // {
-            //     new Day()
-            //     {
-            //         Date = new DateTime(2023, 1, 1),
-            //         Note = "New Year's Day",
-            //     }
-            // };
-
             var daysFromDb = _context.Day.ToList();
 
             return daysFromDb;
@@ -53,7 +27,18 @@ namespace HomeworkForLife.Controllers
         [HttpPost("AddDay")]
         public Task AddDay(Day day)
         {
-            _context.Day.Add(day);
+            _logger.LogInformation("Adding day to database");
+            var ifDayExists = _context.Day.FirstOrDefault(x => x.Date.Date == day.Date.Date);
+            if (ifDayExists == null)
+            {
+                _context.Day.Add(day);
+            }
+            else
+            {
+                ifDayExists.Note = day.Note;
+            }
+            
+            _logger.LogInformation("Saving day to database");
             _context.SaveChanges();
 
             return Task.CompletedTask;

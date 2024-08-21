@@ -9,6 +9,7 @@ function calendar() {
     
     const [currentMonth, setCurrentMonth] = useState(1);
     const [daysInMonth, setDaysInMonth] = useState<Day[]>([]);
+    const [dayModalisOpen, setDayModalisOpen] = useState(false);
 
     useEffect(() => {
         initialiseDays();
@@ -85,11 +86,6 @@ function calendar() {
         }));
         
         var storedDays = await GetDays() ?? [];
-        console.log("Stored Days")
-        console.log(storedDays)
-        
-        console.log("DateArray")
-        console.log(dayArray)
 
         storedDays.forEach((day) => {
             // Convert the date string to a Date object if it's not already
@@ -98,37 +94,25 @@ function calendar() {
             // Calculate the correct index (dayNumber) in the 365-day array
             const startOfYear = new Date(dateObject.getFullYear(), 0, 1); // January 1st of the year
             const dayNumber = Math.floor((dateObject.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-
-            console.log("Day Number")
-            console.log(dayNumber)
-                // Replace the corresponding entry in the dayArray
-            dayArray[dayNumber - 1] = { ...day, date: dateObject };  // Ensure you convert date to a Date object
             
-            console.log("Day Array after replace")
-            console.log(dayArray[dayNumber - 1])
+            dayArray[dayNumber - 1] = { ...day, date: dateObject };  // Ensure you convert date to a Date object
         });
-        
-        console.log("Day Array set!!")
-        console.log(dayArray)
         
         setDaysInMonth(dayArray);
     }
 
     const createDaysComponent = () => {
-        console.log("test")
-        console.log(daysInMonth[229])
-        console.log(daysInMonth[230])
         let daysInCurrentMonth = daysInMonth.filter((day) => day.month === currentMonth);
-        
-        console.log("Current Month")
-        console.log(daysInCurrentMonth)
-        
-        console.log(currentMonth)
-        console.log("Days In current month")
-        console.log(daysInCurrentMonth )
-        
+
         return daysInCurrentMonth.map((day) => (
-            <DayComponent key={day.id} day={day.day} month={day.month} id={day.id} note={day.note} />
+            <DayComponent
+                key={day.id}
+                day={day.day}
+                month={day.month}
+                id={day.id}
+                note={day.note}
+                onClick={() => OpenDayModal} // Pass the onClick handler here
+            />
         ));
     };
     
@@ -148,6 +132,14 @@ function calendar() {
         else {
             setCurrentMonth(currentMonth + 1);
         }
+    }
+    
+    const OpenDayModal = () => { 
+        setDayModalisOpen(true);
+    }
+    
+    const CloseDayModal = () => { 
+        setDayModalisOpen(false);
     }
     
     async function GetDays() {
@@ -179,6 +171,7 @@ function calendar() {
             
             <div className={styles.container}>
                 {createDaysComponent()}
+                {dayModalisOpen && <h1>Day Modal</h1>}
             </div>
             
             <button onClick={previousMonth}>

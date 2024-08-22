@@ -10,6 +10,7 @@ function calendar() {
     const [currentMonth, setCurrentMonth] = useState(1);
     const [daysInMonth, setDaysInMonth] = useState<Day[]>([]);
     const [dayModalisOpen, setDayModalisOpen] = useState(false);
+    const [dayModalContent, setDayModalContent] = useState<Day | null>(null);
 
     useEffect(() => {
         initialiseDays();
@@ -111,7 +112,7 @@ function calendar() {
                 month={day.month}
                 id={day.id}
                 note={day.note}
-                onClick={() => OpenDayModal} // Pass the onClick handler here
+                onClick={() => OpenDayModal(day)}
             />
         ));
     };
@@ -134,12 +135,17 @@ function calendar() {
         }
     }
     
-    const OpenDayModal = () => { 
+    const OpenDayModal = (day : Day) => {
+        console.log("Open Day Modal");
         setDayModalisOpen(true);
+        setDayModalContent(day)
     }
     
     const CloseDayModal = () => { 
+        console.log("Close Day Modal");
         setDayModalisOpen(false);
+        setDayModalContent(null)
+
     }
     
     async function GetDays() {
@@ -168,12 +174,26 @@ function calendar() {
     return (
         <div>
             <h1>{months[currentMonth]} 2024</h1>
-            
+            {dayModalisOpen && (
+                <div className={styles.modal}>
+                    <div className={styles.modalContent}>
+                        <h1>{dayModalContent?.day} {months[currentMonth]}</h1>
+                        <p>Details about the day...</p>
+                        <form>
+                            <label htmlFor="fname">Notes:</label>
+                            <textarea className={styles.formBox} id="notes" name="notes"/><br/><br/>
+                            <input type="submit" value="Submit"/>
+                        </form>
+                        <br/>
+                        <button onClick={CloseDayModal}>Close</button>
+                    </div>
+                </div>
+            )}
             <div className={styles.container}>
                 {createDaysComponent()}
-                {dayModalisOpen && <h1>Day Modal</h1>}
             </div>
-            
+
+
             <button onClick={previousMonth}>
                 Previous Month
             </button>

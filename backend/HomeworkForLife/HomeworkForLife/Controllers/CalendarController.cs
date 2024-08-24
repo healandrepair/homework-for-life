@@ -1,5 +1,6 @@
 using HomeworkForLife.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HomeworkForLife.Controllers
 {
@@ -25,12 +26,15 @@ namespace HomeworkForLife.Controllers
         }
 
         [HttpPost("AddDay")]
-        public Task AddDay(Day day)
+        public async Task<IActionResult> AddDay(Day day)
         {
             _logger.LogInformation("Adding day to database");
-            var ifDayExists = _context.Day.FirstOrDefault(x => x.Date.Date == day.Date.Date);
+            Console.WriteLine("Adding day to database");
+
+            var ifDayExists = await _context.Day.FirstOrDefaultAsync(x => x.Date.Date == day.Date.Date);
             if (ifDayExists == null)
             {
+                day.Id = 0;
                 _context.Day.Add(day);
             }
             else
@@ -39,9 +43,11 @@ namespace HomeworkForLife.Controllers
             }
             
             _logger.LogInformation("Saving day to database");
-            _context.SaveChanges();
+            Console.WriteLine("Saving day to database");
+            await _context.SaveChangesAsync();
 
-            return Task.CompletedTask;
+            _logger.LogInformation("Saved day to database");
+            return Ok();
         }
     }
 }

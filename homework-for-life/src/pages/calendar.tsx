@@ -1,6 +1,6 @@
 import styles from '@/styles/calendar.module.css';
 import DayComponent from "../../components/Day/dayComponent";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import dayComponent from "../../components/Day/dayComponent";
 import {Day} from "../../interfaces/day";
 import {func, instanceOf, number, string} from "prop-types";
@@ -11,6 +11,7 @@ function calendar() {
     const [daysInMonth, setDaysInMonth] = useState<Day[]>([]);
     const [dayModalisOpen, setDayModalisOpen] = useState(false);
     const [dayModalContent, setDayModalContent] = useState<Day | null>(null);
+    const [notesContent, setNotesContent] = useState<string>("");
 
     useEffect(() => {
         initialiseDays();
@@ -83,7 +84,8 @@ function calendar() {
             id: index + 1,
             day: calculateDayOfMonth(index + 1),
             month: calculateMonthFromIndexOfDay(index + 1),
-            notes: ""
+            notes: "",
+            date: new Date(2024, calculateMonthFromIndexOfDay(index + 1) - 1, calculateDayOfMonth(index + 1))
         }));
         
         var storedDays = await GetDays() ?? [];
@@ -143,9 +145,10 @@ function calendar() {
     
     const CloseDayModal = () => { 
         console.log("Close Day Modal");
+        
         setDayModalisOpen(false);
         setDayModalContent(null)
-
+        setNotesContent("");
     }
     
     async function GetDays() {
@@ -171,6 +174,46 @@ function calendar() {
         }
     }
     
+    async function handleNotesChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+        setNotesContent(event.target.value);
+    }
+    
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+
+        event.preventDefault();
+        
+        if (dayModalContent != null) {
+            dayModalContent.note = notesContent;
+
+            await AddDayData(dayModalContent);
+        }
+    }
+    
+    async function AddDayData(day: Day) {
+        console.log(typeof(day))
+        console.log(day)
+        try {
+            const response = await fetch('http://localhost:5240/api/Calendar/AddDay', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(day)
+            });
+
+            if (response.ok) {
+                console.log("Day added successfully");
+            }
+            else {
+                console.log("Error adding day");
+            }
+        }
+        catch (error) { 
+            console.log("Error occurreddd")
+        }
+      
+    }
+    
     return (
         <div>
             <h1>{months[currentMonth]} 2024</h1>
@@ -179,9 +222,9 @@ function calendar() {
                     <div className={styles.modalContent}>
                         <h1>{dayModalContent?.day} {months[currentMonth]}</h1>
                         <p>Details about the day...</p>
-                        <form>
-                            <label htmlFor="fname">Notes:</label>
-                            <textarea className={styles.formBox} id="notes" name="notes"/><br/><br/>
+                        <form onSubmit={handleSubmit}>
+                            {/*<label htmlFor="fname">Notes:</label>*/}
+                            <textarea className={styles.formBox} id="notes" name="notes" onChange={handleNotesChange}/><br/><br/>
                             <input type="submit" value="Submit"/>
                         </form>
                         <br/>
@@ -203,5 +246,11 @@ function calendar() {
         </div>
     )
 }
+
+// things to do:
+
+// set the submit button to insert into DB
+// set month to be system current time.
+// Set notes to be what it was before when editing
 
 export default calendar;

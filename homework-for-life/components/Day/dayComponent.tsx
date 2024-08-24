@@ -1,14 +1,14 @@
 import styles from './dayComponent.module.css';
 
-function DayComponent({ day, month, id, note, onClick}: {day: number,  id: number, month: number, note: string, onClick: () => void}) {
+function DayComponent({ day, month, id, note, hasNote, onClick}: {day: number,  id: number, month: number, note: string, hasNote: boolean, onClick: () => void}) {
     return (
-        <div className={styles.dayComponent} onClick={() => {
-            console.log("DayComponent clicked"); // Debug: Check if this is logged
-            onClick();
-        }}>
+        <div
+            className={`${styles.dayComponent} ${hasNote ? styles.hasNote : ""}`}
+            onClick={onClick}
+        >
             <h1>Day: {day}</h1>
-            <p>ID: {id}</p>
-            <p>Notes: {note}</p>
+            {/*<p>ID: {id}</p>*/} {/* Debug for debug purposes */}
+            {note && <p style={{margin: "auto"}}> {note} </p>}
         </div>
     );
 }

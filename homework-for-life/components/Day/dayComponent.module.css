@@ -4,8 +4,18 @@
     text-align: center;
     cursor: pointer;
     font-family: "Roboto Light", sans-serif;
+    text-overflow: ellipsis; /* Display ellipsis (...) for overflow text */
+    overflow: hidden; /* Hide any overflow text */
+    max-width: 250px; /* Set a maximum width for the div */
+    max-height: 300px; /* Set a maximum width for the div */
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
 }
 
 .dayComponent:hover {
-    background-color: #f0f0f0;
+    background-color: #c4c4c4 !important;
+}
+
+.dayComponent.hasNote {
+    background-color: #5cf45c; /* Background color when there is a note */
+    color: black; /* Optional: change text color for better readability */
 }

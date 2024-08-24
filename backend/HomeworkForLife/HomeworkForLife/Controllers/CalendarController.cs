@@ -28,6 +28,8 @@ namespace HomeworkForLife.Controllers
         [HttpPost("AddDay")]
         public async Task<IActionResult> AddDay(Day day)
         {
+            // Set Date to the current timezone.
+            day.Date = day.Date.ToLocalTime();
             _logger.LogInformation("Adding day to database");
             Console.WriteLine("Adding day to database");
 

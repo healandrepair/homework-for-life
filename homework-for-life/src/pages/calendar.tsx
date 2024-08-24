@@ -214,11 +214,6 @@ function calendar() {
     return (
         <div>
             <h2 className={styles.calendarHeading}>Calendar</h2>
-            {notification && (
-                <div className={styles.notification}>
-                    {notification}
-                </div>
-            )}
             <h1 className={styles.heading}>{months[currentMonth]} {yearValue}</h1>
             {dayModalisOpen && (
                 <div className={styles.modal}>
